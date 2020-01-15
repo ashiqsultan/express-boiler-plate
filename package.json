@@ -1,0 +1,15 @@
+{
+	"name": "express-boiler-plate",
+	"version": "1.0.0",
+	"description": "Simple boiler plate for building api using express js",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"author": "ashiqsultan",
+	"license": "MIT",
+	"dependencies": {
+		"express": "^4.17.1",
+		"morgan": "^1.9.1"
+	}
+}
