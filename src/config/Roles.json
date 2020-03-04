@@ -1,0 +1,6 @@
+{
+	"RoleNameKey": "role-name-to-be-encoded-in-jwt-token",
+	"Admin": "admin",
+	"Student": "student",
+	"Teacher": "teacher"
+}

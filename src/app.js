@@ -2,8 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const apiVersion1 = require('./api/v1/index');
 const apiVersion2 = require('./api/v2/index');
-
 const app = express();
+
+//Creating Roles
+require('./Roles/Admin');
+require('./Roles/Student');
 
 app.use(morgan('dev')); // Middleware Morgan to log all request
 app.use(express.json({ extended: false })); // Middleware to parse request body
