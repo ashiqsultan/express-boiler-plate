@@ -1,5 +1,3 @@
-const admin = require('../../../Roles/Admin');
-
 const protected = async (req, res, next) => {
 	try {
 		console.log(req.useremail);

@@ -1,37 +1,45 @@
+'use strict';
+
 class Role {
 	constructor(name) {
 		this.name = name;
 	}
-	checkRole(calimName) {
+	check(calimName) {
 		return calimName === this.name ? true : false;
 	}
 }
 
-const checkRoleMW = role => {
+const sendUnauthorizedError = res => {
+	const message = 'Unauthorized Request';
+	res.status(401).json({ message });
+};
+
+// Check Role Middleware function requires the claimed role to be inside req.role
+// Example: req.role = 'admin'
+const rolesAuth = (...roles) => {
 	return (req, res, next) => {
-		if (role.checkRole(req.role)) {
-			next();
-		} else {
-			const message = 'Unauthorized Request';
-			res.status(401).json({ message });
+		try {
+			const results = [];
+			roles.map(role => {
+				results.push(role.check(req.role));
+			});
+			results.includes(true) ? next() : sendUnauthorizedError(res);
+		} catch (error) {
+			next(error);
 		}
 	};
 };
 
-const checkManyRoleMW = roles => {
-	return (req, res, next) => {
-		const validity = [];
-		roles.map(role => {
-			validity.push(role.checkRole(req.role));
+const rolesCheck = (claimedRole, ...allowedRoles) => {
+	try {
+		const results = [];
+		allowedRoles.map(role => {
+			results.push(role.check(claimedRole));
 		});
-		console.log(validity)
-		if (validity.includes(true)) {
-			next();
-		} else {
-			const message = 'Unauthorized Request';
-			res.status(401).json({ message });
-		}
-	};
+		return results.includes(true) ? true : false;
+	} catch (error) {
+		console.error(error);
+		return false;
+	}
 };
-
-module.exports = { Role, checkRoleMW, checkManyRoleMW };
+module.exports = { Role, rolesAuth, rolesCheck };
