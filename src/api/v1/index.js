@@ -6,10 +6,8 @@ const private = require('./controllers/private');
 const checkJwt = require('../../util/jwt/checkJwt');
 const admin = require('../../Roles/Admin');
 const student = require('../../Roles/Student');
-const {
-	rolesAuth,
-	rolesCheck
-} = require('../../../custom_modules/role-based-access/Role');
+const teacher = require('../../Roles/Teacher');
+const { rolesAuth } = require('../../../custom_modules/role-based-access/Role');
 
 // GET '/'
 router.get('/', async (req, res, next) => {
@@ -32,7 +30,7 @@ router.post('/', async (req, res, next) => {
 
 router.post('/login', login);
 // Authenticating roles in Middleware
-router.post('/protected', [checkJwt, rolesAuth(admin, student)], protected);
+router.post('/protected', [checkJwt, rolesAuth(admin, teacher)], protected);
 // Authenticating roles in inside request handler function
 router.post('/private', checkJwt, private);
 module.exports = router;

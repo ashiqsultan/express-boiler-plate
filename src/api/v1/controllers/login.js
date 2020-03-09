@@ -1,7 +1,7 @@
 const sendJWT = require('../../../util/jwt/sendJwt');
 const login = async (req, res, next) => {
 	const { email } = req.body;
-	const role = 'admin'; // role stored in database
+	const role = 'student'; // role stored in database
 	try {
 		// Getting User details from the provided email, if no email means no user so send error
 		if (!email) {
