@@ -4,10 +4,8 @@ const login = require('./controllers/login');
 const protected = require('./controllers/protected');
 const private = require('./controllers/private');
 const checkJwt = require('../../util/jwt/checkJwt');
-const admin = require('../../Roles/Admin');
-const student = require('../../Roles/Student');
-const teacher = require('../../Roles/Teacher');
-const { rolesAuth } = require('../../../custom_modules/role-based-access/Role');
+const {admin,student,teacher} = require('../../Roles/UserRoles');
+const { checkRole } = require('route-access-control');
 
 // GET '/'
 router.get('/', async (req, res, next) => {
@@ -30,7 +28,7 @@ router.post('/', async (req, res, next) => {
 
 router.post('/login', login);
 // Authenticating roles in Middleware
-router.post('/protected', [checkJwt, rolesAuth(admin, teacher)], protected);
+router.post('/protected', [checkJwt, checkRole(admin, student,teacher)], protected);
 // Authenticating roles in inside request handler function
 router.post('/private', checkJwt, private);
 module.exports = router;

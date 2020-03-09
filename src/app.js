@@ -5,8 +5,7 @@ const apiVersion2 = require('./api/v2/index');
 const app = express();
 
 //Creating Roles
-require('./Roles/Admin');
-require('./Roles/Student');
+require('./Roles/UserRoles');
 
 app.use(morgan('dev')); // Middleware Morgan to log all request
 app.use(express.json({ extended: false })); // Middleware to parse request body

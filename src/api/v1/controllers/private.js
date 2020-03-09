@@ -1,14 +1,13 @@
-const admin = require('../../../Roles/Admin');
-const student = require('../../../Roles/Student');
-const teacher = require('../../../Roles/Teacher');
-const { rolesValidate } = require('../../../../custom_modules/role-based-access/Role');
+const { admin, student, teacher } = require('../../../Roles/UserRoles');
+const { isRoleAuthorized } = require('route-access-control');
 
 const private = async (req, res, next) => {
 	try {
 		console.log(`username ${req.useremail} user role ${req.role}`);
 		const claimedRole = req.role;
-		const allowedRoles = [admin, teacher];
-		if (await rolesValidate(claimedRole, ...allowedRoles)) {
+		const allowedRoles = [admin];
+		const isAuthorized = await isRoleAuthorized(claimedRole, allowedRoles);
+		if (isAuthorized) {
 			res.json('This is private route');
 		} else {
 			const message = 'User not authorized';
