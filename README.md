@@ -13,7 +13,7 @@ I developed this boiler plate to set myself a directory structure to follow in m
 
 | Name       | Function                                                                    |
 | ---------- | --------------------------------------------------------------------------- |
-| server.js  | Starts the api server and listens to specified port                         |
+| server.js  | Starts the api server and listens to specified port. Any code you want to run before starting the server can be included in this file                         |
 | src folder | Contains all of your app files                                              |
 | src/app.js | Initial file which starts the app, routes versions, sends 404 and 500 error |
 | src/api    | API versions are seperated into folders and placed inside this folder       |
