@@ -2,11 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 const apiVersion1 = require('./api/v1/index');
 const apiVersion2 = require('./api/v2/index');
+const config = require('./config');
+const dbConnect = require('./util/dbConnect');
 
 const app = express();
 
 app.use(morgan('dev')); // Middleware Morgan to log all request
 app.use(express.json({ extended: false })); // Middleware to parse request body
+
+// Connect to MongoDB
+dbConnect(config.dbConnectionString);
 
 // API Version 1 as Middleware
 app.use('/v1', apiVersion1);
