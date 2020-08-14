@@ -1,4 +1,4 @@
-# Simple Express Boiler Plate
+# Simple Express Boiler Plate with MongoDB
 
 This is a simple boiler plate for developing API using Express JS.
 Since Express doesn't restrict you to a specific directory structure you have the freedom to develop apis in any directory structure you desire.
