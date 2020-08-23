@@ -1,22 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const place = require('./place/routes');
+const food = require('./food/routes');
 
-// GET '/'
-router.get('/', async (req, res, next) => {
-	try {
-		res.json('hello world!');
-	} catch (error) {
-		next(error);
-	}
-});
-
-// POST '/'
-router.post('/', async (req, res, next) => {
-	try {
-		res.json('hello you made a POST req');
-	} catch (error) {
-		next(error);
-	}
-});
+// route resources
+router.use('/place', place);
+router.use('/food', food);
 
 module.exports = router;
