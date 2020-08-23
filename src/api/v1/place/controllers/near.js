@@ -1,6 +1,7 @@
 const near = require('../../../../services/place/near');
+const router = require('express').Router();
 
-module.exports = async (req, res, next) => {
+router.use(async (req, res, next) => {
   try {
     const longitude = Number(req.query.lng);
     const latitude = Number(req.query.lat);
@@ -14,4 +15,6 @@ module.exports = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+});
+
+module.exports = router;

@@ -14,7 +14,7 @@ const within = async (geometry) => {
       },
     });
 
-    return { places };
+    return places;
   } catch (error) {
     throw error;
   }

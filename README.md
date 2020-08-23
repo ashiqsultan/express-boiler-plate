@@ -6,12 +6,59 @@ Since Express doesn't restrict you to a specific directory structure you have th
 
 I developed this boiler plate to set myself a directory structure to follow in my projects.
 
+## TL;DR Rules
+
+- Don't write business logic inside **Controllers**
+- Don't interact with databases inside Controllers
+- **Services** should be pure functions
+- Services is the place to write business logic
+- Interact with Databases usings ORMs inside the Service layer.
+- Don't handle Router, Request, Response or anything related to http or Express.js inside Services -**util** folder contains functions used globally in the project
+- All configrations should be inside **config.js** file and never hardcoded.
+- P.S Remove unnecessary console logs in production
+
+## Description
+
+The Project structure can be divided into three main components
+
+1. API resource routes
+2. Controllers (Route Logic)
+3. Services (Business Logic)
+
+In the above Components only 1 and 2 should contains Express.js code. The seperation of Controller and Business logic is to
+
+- Facilitate Unit Testing Functionality without API calls.
+- Incase a need arises to call business logic from a CLI tool in the future.
+- More clean code.
+- Express, Req and Res handling is done in the controller.
+- Business Logic is done in the service
+
 ## How to start
 
 Start the app for development using the coommand
 
 ```
 npm run devstart
+```
+
+### Demo API calls
+
+**GET**
+
+```
+Url : localhost:8000/v1/food
+```
+
+**POST**
+
+```
+Url : localhost:8000/v1/food
+Body : {
+    "foodToAdd": [
+        "banana",
+        "strawberry"
+    ]
+}
 ```
 
 ## What's included ?
@@ -29,35 +76,10 @@ npm run devstart
 | app.js                     | Starts server, loads express middlewares and other initial functions needed at the start of server |
 | models                     | Contains MongoDB Mongoose Schema                                                                   |
 | services                   | Contains business logic                                                                            |
-| api/v1                     | Contains api versioning folders                                                                    |
+| api/                       | Contains api versioning folder and middlewares folders                                             |
+| api/v1/resource            | Every API resource should have folder containing routes.js file and Controllers                    |
 | api/v1/resource/routes.js  | Routes path to controllers                                                                         |
 | api/v1/resource/controller | Route logic for the resources. Calls the required service function                                 |
-
-## Env and Config
-
-- All app configurations are stored in config.js
-- The config.js values should be loaded from **process.env** variables
-- You can also store configs directly in the config.js
-- You can store some configs directly in the file and some as env variables
-
-### Development and Production configs
-
-- There are two configs one for development and one for production
-- This is done in case we need to have different config values for different environments
-- They are loaded based on the `process.env.NODE_ENV` value. Default is development
-- You can also add staging environment and edit the `if...else` statement at the end of the config.js file
-
-### Environment Variables in development
-
-- To load env variables in development we have used **dotenv** npm package
-- The following environment variables and configs are necessary - `NODE_ENV` - `PORT` - `DB_CONNECTION_STRING`
-
-## MongoDB Configuration
-
-- Create a .env file
-- Create a env resource named `DB_CONNECTION_STRING = connectionstring`
-- This boiler plate uses Mongoose to connect with MongoDB
-- The db connection function is inside `src/util/dbConnect.js`
 
 ## Sevices
 
@@ -80,3 +102,38 @@ npm run devstart
 - They call the respective service functions with the required parameters
 - Always use Try...Catch
 - Call next(error) inside catch
+
+## Env and Config
+
+- All app configurations are stored in config.js
+- You can store some configs directly in the file and some as env variables
+- env values can be loaded using **process.env.VARIABLE_NAME**
+- You can also store configs directly in the config.js
+- Make sure to save confidential values like db connection string and JWT Secret key as environment variables
+
+### Development and Production configs
+
+- There are two configs one for development and one for production
+- This is done in case we need to have different config values for different environments
+- They are loaded based on the `process.env.NODE_ENV` value. Default is development
+- You can also add staging environment and edit the `if...else` statement at the end of the config.js file
+
+### Environment Variables in development
+
+To load env variables in development we have used **dotenv** npm package. Its loaded at the beginning of the app.
+
+### Recommended Configs
+
+Its recommended to have the following environment variables or configs
+
+- dbConnectionString
+- port
+- corsOptions
+- morganLogType
+
+## MongoDB Configuration
+
+- Create a .env file
+- Create a env resource named `DB_CONNECTION_STRING = connectionstring`
+- This boiler plate uses Mongoose to connect with MongoDB
+- The db connection function is inside `src/util/dbConnect.js`

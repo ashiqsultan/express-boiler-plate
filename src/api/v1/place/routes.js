@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const within = require('../../../services/place/within');
 const near = require('./controllers/near');
+const within = require('./controllers/within');
 
 // GET '/near'
 router.get('/near', near);

@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const apiVersion1 = require('./api/v1');
 const apiVersion2 = require('./api/v2');
+const cors = require('cors');
 const dbConnect = require('./util/dbConnect');
 
 const app = express();
@@ -24,6 +25,9 @@ app.use(morgan(config.morganLogType));
 
 // Middleware for express to parse request body
 app.use(express.json({ extended: false }));
+
+// Enable CORS
+app.use(cors(config.corsOptions));
 
 // Connect to MongoDB
 dbConnect(config.dbConnectionString);
