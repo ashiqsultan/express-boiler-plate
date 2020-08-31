@@ -13,7 +13,8 @@ I developed this boiler plate to set myself a directory structure to follow in m
 - **Services** should be pure functions
 - Services is the place to write business logic
 - Interact with Databases usings ORMs inside the Service layer.
-- Don't handle Router, Request, Response or anything related to http or Express.js inside Services -**util** folder contains functions used globally in the project
+- Don't handle Router, Request, Response or anything related to http or Express.js inside Services 
+- **util** folder contains functions used globally in the project
 - All configrations should be inside **config.js** file and never hardcoded.
 - P.S Remove unnecessary console logs in production
 
@@ -41,32 +42,13 @@ Start the app for development using the coommand
 npm run devstart
 ```
 
-### Demo API calls
-
-**GET**
-
-```
-Url : localhost:8000/v1/food
-```
-
-**POST**
-
-```
-Url : localhost:8000/v1/food
-Body : {
-    "foodToAdd": [
-        "banana",
-        "strawberry"
-    ]
-}
-```
-
 ## What's included ?
 
 - Directory structure for versioning api
 - Separation of Express code and business logic
 - Logging using Morgan
 - Mongoose connect configuration
+- JWT JSON Web Token
 
 ## About Files and Folders
 
@@ -137,3 +119,23 @@ Its recommended to have the following environment variables or configs
 - Create a env resource named `DB_CONNECTION_STRING = connectionstring`
 - This boiler plate uses Mongoose to connect with MongoDB
 - The db connection function is inside `src/util/dbConnect.js`
+
+### Demo API calls
+
+**GET**
+
+```
+Url : localhost:8000/v1/food
+```
+
+**POST**
+
+```
+Url : localhost:8000/v1/food
+Body : {
+    "foodToAdd": [
+        "banana",
+        "strawberry"
+    ]
+}
+```
