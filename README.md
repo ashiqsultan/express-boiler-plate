@@ -1,4 +1,4 @@
-# Simple Express Boiler Plate with MongoDB
+# Simple Express Boiler Plate with MongoDB and JWT
 
 This is a simple boiler plate for developing APIs using Express JS.
 
@@ -35,19 +35,17 @@ In the above Components only 1 and 2 should contains Express.js code. The sepera
 - Business Logic is done in the service
 
 ## How to start
-
 Start the app for development using the coommand
-
-```
-npm run devstart
-```
+`npm run devstart`
 
 ## What's included ?
 
 - Directory structure for versioning api
-- Separation of Express code and business logic
+- Separation of Express code and business logic and Database
 - Logging using Morgan
 - Mongoose connect configuration
+- Loading configs based on NODE_ENV
+- Utility functions
 - JWT JSON Web Token
 
 ## About Files and Folders
